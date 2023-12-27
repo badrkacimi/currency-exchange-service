@@ -1,5 +1,6 @@
 package com.stayUpdated.microservices.currencyexchangeservice.controller;
 
+import io.github.resilience4j.bulkhead.annotation.Bulkhead;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
 import io.github.resilience4j.retry.annotation.Retry;
@@ -17,7 +18,8 @@ public class CircuitBreakerController {
     @GetMapping("/api/circuitbreaker")
     //@Retry(name = "simpleApi", fallbackMethod = "fallbackResponse")
     //@CircuitBreaker(name = "simpleApi", fallbackMethod = "fallbackResponse")
-    @RateLimiter(name = "simpleApi") //allows 1000 requests to simpleApi per 10 seconds
+    //@RateLimiter(name = "simpleApi") //allows 1000 requests to simpleApi per 10 seconds
+    @Bulkhead(name = "simpleApi")
     public String simpleApi(){
 //        logger.info("Inside simpleApi");
 //        ResponseEntity<String> forEntity = new RestTemplate().getForEntity("http://localhost:8080/dummy-url", String.class);
