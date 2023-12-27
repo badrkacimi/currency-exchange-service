@@ -1,6 +1,7 @@
 package com.stayUpdated.microservices.currencyexchangeservice.controller;
 
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
 import io.github.resilience4j.retry.annotation.Retry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,11 +16,13 @@ public class CircuitBreakerController {
     private final Logger logger = LoggerFactory.getLogger(CircuitBreakerController.class);
     @GetMapping("/api/circuitbreaker")
     //@Retry(name = "simpleApi", fallbackMethod = "fallbackResponse")
-    @CircuitBreaker(name = "simpleApi", fallbackMethod = "fallbackResponse")
+    //@CircuitBreaker(name = "simpleApi", fallbackMethod = "fallbackResponse")
+    @RateLimiter(name = "simpleApi") //allows 1000 requests to simpleApi per 10 seconds
     public String simpleApi(){
-        logger.info("Inside simpleApi");
-        ResponseEntity<String> forEntity = new RestTemplate().getForEntity("http://localhost:8080/dummy-url", String.class);
-        return forEntity.getBody();
+//        logger.info("Inside simpleApi");
+//        ResponseEntity<String> forEntity = new RestTemplate().getForEntity("http://localhost:8080/dummy-url", String.class);
+//        return forEntity.getBody();
+        return "simpleApi";
     }
 
     public String fallbackResponse(Exception ex){
