@@ -27,6 +27,6 @@ from: Currency code to convert from (e.g., USD).
 to: Currency code to convert to (e.g., INR).
 Example: /currency-exchange/from/USD/to/INR
 
-Acknowledgements
+### Acknowledgements
 This project is inspired by the "Mastering Microservices" series.
 
